@@ -110,7 +110,8 @@ export default {
         overflow: hidden;
         height: 0;
         transition: all 0.3s;
-
+        background-color: #fff;
+        z-index: 20;
         img {
           width: 80px;
           display: block;
@@ -123,7 +124,7 @@ export default {
         }
       }
 
-      &:hover a {
+      a:hover {
         color: white;
       }
 
@@ -154,32 +155,27 @@ export default {
     position: relative;
 
     &:hover .cart-menu{
-        height: 100px;
+      height: 100px;
     }
-
     &:hover{
-        background-color: white;
+      background-color: white;
     }
-
     &:hover a{
-        color: #ff6700;
-        background-color: #fff;
+      color: #ff6700;
+      background-color: #fff;
     }
-
     a{
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 40px;
-        width: 120px;
-        z-index: 10;
-        background-color: #424242;
-
-        i{
-            margin-right: 3px;
-        }
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 40px;
+      width: 120px;
+      z-index: 10;
+      background-color: #424242;
+      i{
+        margin-right: 3px;
+      }
     }
-
     .cart-menu{
         width: 316px;
         position: absolute;
@@ -190,6 +186,7 @@ export default {
         transition: all .3s;
         height: 0;
         z-index: 6;
+        background-color: #fff;
     }
   }
 
@@ -198,12 +195,11 @@ export default {
     line-height: 40px;
 
     a{
-        display: block;
-        height: 40px;
-
-        &:hover{
-            color: white;
-        }
+      display: block;
+      height: 40px;
+      &:hover{
+        color: white;
+      }
     }
     
     .info{
@@ -212,25 +208,22 @@ export default {
     }
 
     .login{
+      float: right;
+      li{
         float: right;
-
-        li{
-            float: right;
-            position: relative;
-            padding: 0 10px 0 7px;
-
-            &::after{
-                content:"|";
-                display: block;
-                line-height: 40px;
-                height: 40px;
-                position: absolute;
-                top: 0;
-                right:0;
-                color: #3b423b;
-            }
+        position: relative;
+        padding: 0 10px 0 7px;
+        &::after{
+          content:"|";
+          display: block;
+          line-height: 40px;
+          height: 40px;
+          position: absolute;
+          top: 0;
+          right:0;
+          color: #3b423b;
         }
-        
+      }
     }
   }
 }

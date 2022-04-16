@@ -78,6 +78,7 @@ export default {
         ul{
             display: grid;
             height: 614px;
+            width: 1226px;
             grid-template-rows: repeat(2,300px);
             grid-template-columns: repeat(5,234px);
             justify-content: space-between;

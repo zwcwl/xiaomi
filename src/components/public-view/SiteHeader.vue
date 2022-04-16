@@ -141,7 +141,7 @@ export default {
           description: "社区",
           childList: null,
         },
-      ],
+      ]
     };
   },
 };
@@ -188,19 +188,24 @@ export default {
       transition: all 0.3s;
     }
   }
-
+  & > ul > li:hover .item-children{
+    height: 242px;
+    border-top: 1px solid #ccc;
+  }
   .item-children{
     position: absolute;
     top: 100px;
     left: 0;
     width: 100%;
     box-shadow: 0 3px 4px rgb(0 0 0 / 1%);
-    display: none;
+    z-index: 20;
+    height: 0;
+    overflow: hidden;
+    transition: height .3s;
 
     .container{
       width: 1226px;
       margin: 0 auto;
-      height: 242px;
       
       ul{
         display: flex;
