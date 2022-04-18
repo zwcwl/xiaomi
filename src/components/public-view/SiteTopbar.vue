@@ -39,8 +39,8 @@
           </div>
           <div class="login">
               <ul>
-                  <li><a href="">登入</a></li>
                   <li><a href="">注册</a></li>
+                  <li><a href="">登入</a></li>
               </ul>
           </div>
       </div>

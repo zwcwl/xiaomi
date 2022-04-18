@@ -7,8 +7,8 @@
         </a>
       </div>
       <div class="header-nav">
-        <ul class="clearfix">
-          <li v-for="item of commodity" :key="item.description">
+        <ul class="clearfix" @mouseenter="ulShow">
+          <li v-for="item of commodity" :key="item.description" @mouseenter="liShow">
             <a href="">{{ item.description }}</a>
             <div class="item-children">
               <div class="container">
@@ -141,9 +141,21 @@ export default {
           description: "社区",
           childList: null,
         },
-      ]
+      ],
+      toggle:0
     };
   },
+  methods:{
+    ulShow(){
+      console.log("ul");
+      this.toggle=1;
+    },
+    liShow(){
+      console.log("li");
+      console.log(this.toggle);
+      console.log(event.target)
+    }
+  }
 };
 </script>
 
@@ -188,7 +200,7 @@ export default {
       transition: all 0.3s;
     }
   }
-  & > ul > li:hover .item-children{
+  & > ul:hover .item-children{
     height: 242px;
     border-top: 1px solid #ccc;
   }
@@ -197,11 +209,12 @@ export default {
     top: 100px;
     left: 0;
     width: 100%;
-    box-shadow: 0 3px 4px rgb(0 0 0 / 1%);
+    box-shadow: 0 3px 4px rgb(0 0 0 / 20%);
     z-index: 20;
     height: 0;
     overflow: hidden;
     transition: height .3s;
+    background-color: #fff;
 
     .container{
       width: 1226px;
