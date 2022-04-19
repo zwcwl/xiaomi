@@ -7,10 +7,10 @@
         </a>
       </div>
       <div class="header-nav">
-        <ul class="clearfix" @mouseenter="ulShow">
-          <li v-for="item of commodity" :key="item.description" @mouseenter="liShow">
+        <ul class="clearfix">
+          <li v-for="(item,index) of commodity" :key="item.description" @mouseenter="liShow('item'+index)" @mouseleave="liHidden('item'+index)">
             <a href="">{{ item.description }}</a>
-            <div class="item-children">
+            <div class="item-children" v-if="item.childList" :ref="'item'+index">
               <div class="container">
                 <ul >
                   <li v-for="(msg) of item.childList" :key="msg.childMsg">
@@ -142,18 +142,29 @@ export default {
           childList: null,
         },
       ],
-      toggle:0
+      toggle:false
     };
   },
   methods:{
-    ulShow(){
-      console.log("ul");
-      this.toggle=1;
+    liShow(obj){
+      console.log(this.$refs[obj][0]);
+      this.$refs[obj][0].style.display="block";
+      
+      setTimeout(()=>{
+        this.$refs[obj][0].style.height="242px";
+      },0);
     },
-    liShow(){
-      console.log("li");
-      console.log(this.toggle);
-      console.log(event.target)
+    liHidden(obj){
+      setTimeout(()=>{
+        console.log(this.toggle);
+        if(this.toggle){
+          this.$refs[obj][0].style.height="0";
+        }else{
+          this.$refs[obj][0].style.transition="none";
+          this.$refs[obj][0].style.height="242px";
+          this.$refs[obj][0].style.display="bolck";
+        };
+      },200);
     }
   }
 };
@@ -200,10 +211,6 @@ export default {
       transition: all 0.3s;
     }
   }
-  & > ul:hover .item-children{
-    height: 242px;
-    border-top: 1px solid #ccc;
-  }
   .item-children{
     position: absolute;
     top: 100px;
@@ -215,6 +222,7 @@ export default {
     overflow: hidden;
     transition: height .3s;
     background-color: #fff;
+    display: none;
 
     .container{
       width: 1226px;
