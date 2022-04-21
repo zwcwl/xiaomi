@@ -58,7 +58,7 @@ export default {
 .site-topbar {
   background-color: #333333;
 }
-.container {
+.site-topbar .container {
   width: 1226px;
   margin: 0 auto;
   height: 40px;

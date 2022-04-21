@@ -20,7 +20,7 @@ import HomeHero from '@/components/home-view/HomeHero.vue'
 import ShouJi from '@/components/home-view/ShouJi.vue'
 
 export default {
-  name: 'LoginView',
+  name: 'HomeView',
   components:{
     SiteTopbar,
     SiteHeader,

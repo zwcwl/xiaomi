@@ -7,22 +7,9 @@
         </a>
       </div>
       <div class="header-nav">
-        <ul class="clearfix">
-          <li v-for="(item,index) of commodity" :key="item.description" @mouseenter="liShow('item'+index)" @mouseleave="liHidden('item'+index)">
+        <ul class="clearfix" @mouseenter="ulShow" @mouseleave="ulHidden">
+          <li v-for="(item,index) of commodity" :key="item.description" @mouseenter="liShow(index)">
             <a href="">{{ item.description }}</a>
-            <div class="item-children" v-if="item.childList" :ref="'item'+index">
-              <div class="container">
-                <ul >
-                  <li v-for="(msg) of item.childList" :key="msg.childMsg">
-                    <a href="@/assets/images/01.webp">
-                    <div class="item-img"><img src="@/assets/images/01.webp" alt=""></div>
-                    <div>{{msg.childMsg}}</div>
-                    <p>{{msg.price}}</p>
-                  </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
           </li>
         </ul>
       </div>
@@ -45,6 +32,19 @@
             </ul>
           </div>
         </form>
+      </div>
+    </div>
+    <div class="item-children" ref="children">
+      <div class="container">
+        <ul >
+          <li v-for="(item) of arr.childList" :key="item.description">
+            <a href="@/assets/images/01.webp">
+            <div class="item-img"><img src="@/assets/images/01.webp" alt=""></div>
+            <div>{{item.childMsg}}</div>
+            <p>{{item.price}}</p>
+          </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -142,29 +142,32 @@ export default {
           childList: null,
         },
       ],
-      toggle:false
+      arr:[]
     };
   },
   methods:{
-    liShow(obj){
-      console.log(this.$refs[obj][0]);
-      this.$refs[obj][0].style.display="block";
+    ulShow(){
+      this.$refs.children.style.borderTop="1px solid #ccc";
       
-      setTimeout(()=>{
-        this.$refs[obj][0].style.height="242px";
-      },0);
+      this.$refs.children.style.height="230px";
+      
+    },
+    ulHidden(){
+      this.$refs.children.style.height="0";
+      this.$refs.children.style.borderTop="1px solid transparent";
+    },
+    liShow(num){
+      console.log(num)
+      if(num == 7 || num == 8){
+        console.log(num)
+        this.arr=this.commodity[6];
+        this.ulHidden();
+      }else{
+        this.arr=this.commodity[num];
+      }
     },
     liHidden(obj){
-      setTimeout(()=>{
-        console.log(this.toggle);
-        if(this.toggle){
-          this.$refs[obj][0].style.height="0";
-        }else{
-          this.$refs[obj][0].style.transition="none";
-          this.$refs[obj][0].style.height="242px";
-          this.$refs[obj][0].style.display="bolck";
-        };
-      },200);
+      
     }
   }
 };
@@ -211,71 +214,7 @@ export default {
       transition: all 0.3s;
     }
   }
-  .item-children{
-    position: absolute;
-    top: 100px;
-    left: 0;
-    width: 100%;
-    box-shadow: 0 3px 4px rgb(0 0 0 / 20%);
-    z-index: 20;
-    height: 0;
-    overflow: hidden;
-    transition: height .3s;
-    background-color: #fff;
-    display: none;
-
-    .container{
-      width: 1226px;
-      margin: 0 auto;
-      
-      ul{
-        display: flex;
-        justify-content: space-between;
-        align-items: stretch;
-        padding: 36px 0;
-      }
-      li{
-        height: 100%;
-        flex: 1;
-        padding: 0 10px;
-        position: relative;
-        a{
-          display: block;
-          height: 100%;
-          color: #333333;
-          text-align: center;
-          .item-img{
-            width: 160px;
-            height: 110px;
-            img{
-              display: block;
-            }
-            margin: 0 auto;
-          }
-          div{
-            margin: 20px 0 4px;
-          }
-          p{
-            color: #ff6a00;
-          }
-        }
-
-        &::after{
-          content: "";
-          display: block;
-          border-right: 1px solid #e0e0e0;
-          position: absolute;
-          right: 0;
-          top: 12px;
-          height: 100px;
-        }
-
-        &:last-child::after{
-          display: none;
-        }
-      }
-    }
-  }
+  
 }
 
 .header-search {
@@ -329,5 +268,71 @@ export default {
       }
     }
   }
+}
+
+.item-children{
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 3px 4px rgb(0 0 0 / 20%);
+    z-index: 20;
+    height: 0;
+    overflow: hidden;
+    transition: all .3s;
+    background-color: #fff;
+    border-top: 1px solid transparent;
+
+    .container{
+      width: 1226px;
+      margin: 0 auto;
+      
+      ul{
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        padding: 36px 0 24px;
+      }
+      li{
+        height: 100%;
+        flex: 1;
+        padding: 0 10px;
+        position: relative;
+        a{
+          display: block;
+          height: 100%;
+          color: #333333;
+          text-align: center;
+          .item-img{
+            width: 160px;
+            height: 110px;
+            img{
+              display: block;
+            }
+            margin: 0 auto;
+          }
+          div{
+            margin: 16px 0 2px;
+          }
+          p{
+            color: #ff6a00;
+          }
+        }
+
+        &::after{
+          content: "";
+          display: block;
+          border-right: 1px solid #e0e0e0;
+          position: absolute;
+          right: 0;
+          top: 12px;
+          height: 100px;
+        }
+
+        &:last-child::after{
+          display: none;
+        }
+      }
+    }
 }
 </style>
