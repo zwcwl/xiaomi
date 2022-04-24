@@ -7,22 +7,24 @@
         </a>
       </div>
       <div class="header-nav">
-        <ul class="clearfix" @mouseenter="ulShow" @mouseleave="ulHidden">
-          <li v-for="(item,index) of commodity" :key="item.description" @mouseenter="liShow(index)">
+        <ul class="nav-list clearfix">
+          <li v-for="(item,index) of commodity" class="nav-item" :key="item.description" @mouseenter="navListShow(index)" @mouseleave="navListConceal">
             <a href="">{{ item.description }}</a>
           </li>
         </ul>
       </div>
       <div class="header-search">
-        <form action="">
-          <input type="text" />
-          <a href="">
-            <button><i class="iconfont icon-sousuo"></i></button>
+        <form class="search-form clearfix" @mouseenter="formWrie(true)" @mouseleave="formWrie(false)">
+          <a href="javascript:void(0);" class="search-text">
+            <input type="text" @focus="formListIsShow(true)" @blur="formListIsShow(false)">
+          </a>
+          <a href="javascript:void(0);" class="search-btn" @mouseenter="btnAlter(true)" @mouseleave="btnAlter(false)">
+            <i class="iconfont icon-sousuo"></i>
           </a>
           <div class="keyword-list">
-            <ul>
+            <ul class="result-list">
               <li><a href="">hello</a></li>
-              <li><a href=""></a></li>
+              <li><a href="">world</a></li>
               <li><a href=""></a></li>
               <li><a href=""></a></li>
               <li><a href=""></a></li>
@@ -34,14 +36,14 @@
         </form>
       </div>
     </div>
-    <div class="item-children" ref="children">
+    <div class="header-nav-menu" :class="{'slide-down':toogle,'slide-up':!toogle}" ref="children" @mouseenter="toogle=true" @mouseleave="toogle=false">
       <div class="container">
-        <ul >
+        <ul class="children-list">
           <li v-for="(item) of arr.childList" :key="item.description">
             <a href="@/assets/images/01.webp">
-            <div class="item-img"><img src="@/assets/images/01.webp" alt=""></div>
-            <div>{{item.childMsg}}</div>
-            <p>{{item.price}}</p>
+            <div class="figure"><img src="@/assets/images/01.webp" alt="" width="160px" height="110px"></div>
+            <div class="title">{{item.childMsg}}</div>
+            <p class="price">{{item.price}}</p>
           </a>
           </li>
         </ul>
@@ -142,47 +144,68 @@ export default {
           childList: null,
         },
       ],
-      arr:[]
+      arr: [],
+      toogle: false,
     };
   },
-  methods:{
-    ulShow(){
-      this.$refs.children.style.borderTop="1px solid #ccc";
-      
-      this.$refs.children.style.height="230px";
-      
-    },
-    ulHidden(){
-      this.$refs.children.style.height="0";
-      this.$refs.children.style.borderTop="1px solid transparent";
-    },
-    liShow(num){
-      console.log(num)
-      if(num == 7 || num == 8){
-        console.log(num)
-        this.arr=this.commodity[6];
-        this.ulHidden();
-      }else{
-        this.arr=this.commodity[num];
+  methods: {
+    navListShow(num) {
+      event.target.classList.add("nav-item-active");
+      if (num == 7 || num == 8) {
+        this.arr = this.commodity[6];
+        this.toogle = false;
+      } else {
+        this.arr = this.commodity[num];
+        this.toogle = true;
       }
     },
-    liHidden(obj){
-      
+    navListConceal() {
+      this.toogle = false;
+      event.target.classList.remove("nav-item-active");
+    },
+    formWrie(toogle) {
+      console.log(toogle);
+      if (toogle) {
+        event.target.children[0].classList.add("wrie-active");
+        event.target.children[1].classList.add("wrie-active");
+      } else {
+        event.target.children[0].classList.remove("wrie-active");
+        event.target.children[1].classList.remove("wrie-active");
+      }
+    },
+    formListIsShow(toogle){
+      if (toogle) {
+        event.target.parentNode.parentNode.children[2].style.display = "block";
+        event.target.parentNode.parentNode.children[0].style.borderColor = "#ff6a00";
+        event.target.parentNode.parentNode.children[1].style.borderColor = "#ff6a00";
+      } else {
+        event.target.parentNode.parentNode.children[2].style.display = "none";
+        event.target.parentNode.parentNode.children[0].style.borderColor = "#e0e0e0";
+        event.target.parentNode.parentNode.children[1].style.borderColor = "#e0e0e0";
+      }
+    },
+    btnAlter(toogle){
+      if(toogle){
+        event.target.classList.add("btn-active");
+        event.target.style.borderColor = "#ff6a00";
+      }else{
+        event.target.classList.remove("btn-active");
+        event.target.style.borderColor = "#e0e0e0";
+      }
     }
-  }
+  },
 };
 </script>
 
 <style lang="scss">
 .site-header {
   position: relative;
-}
-.site-header > .container {
-  width: 1226px;
-  margin: 0 auto;
-  height: 100px;
-}
 
+  .container {
+    width: 1226px;
+    margin: 0 auto;
+  }
+}
 .header-logo {
   width: 56px;
   height: 56px;
@@ -204,17 +227,19 @@ export default {
   height: 88px;
   margin-left: 142px;
 
-  & > ul > li {
+  .nav-list .nav-item {
     float: left;
     & > a {
       display: block;
       padding: 26px 10px 38px;
       color: #333333;
       font-size: 16px;
-      transition: all 0.3s;
+      transition: color 0.3s;
+    }
+    &.nav-item-active a {
+      color: #ff6a00;
     }
   }
-  
 }
 
 .header-search {
@@ -222,104 +247,112 @@ export default {
   margin-top: 25px;
   position: relative;
 
-  input {
-    float: left;
-    border: 1px solid #aaa;
-    width: 223px;
-    padding: 0 10px;
-  }
-
-  & form > a {
-    float: left;
-    border: 1px solid #aaa;
-    border-left-style: none;
-    width: 49px;
-    height: 48px;
-    button {
-      display: block;
-      width: 100%;
-      i {
-        font-size: 22px;
+  .search-form {
+    .search-text {
+      float: left;
+      border: 1px solid #e0e0e0;
+      width: 223px;
+      padding: 0 10px;
+      input {
+        width: 100%;
       }
     }
-  }
+    .search-btn {
+      float: left;
+      border: 1px solid #e0e0e0;
+      border-left-style: none;
+      width: 49px;
+      height: 48px;
+      i {
+        display: block;
+        line-height: 48px;
+        font-size: 22px;
+        text-align: center;
+      }
+    }
+    .btn-active{
+      background-color: #ff6a00;
+      color: #616161;
+    }
+    .wrie-active{
+      border-color: #b0b0b0;
+    }
+    .keyword-list {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      border: 1px solid #ff6a00;
+      border-top-style: none;
+      width: 243px;
+      display: none;
+      z-index: 30;
 
-  .keyword-list {
-    position: absolute;
-    top: 50px;
-    left: 0;
-    border: 1px solid #aaa;
-    border-top-style: none;
-    width: 243px;
-    display: none;
-
-    ul {
-      li {
-        height: 25px;
-        background-color: #fff;
-
-        a {
-          display: block;
+      .result-list {
+        li {
           height: 30px;
-          text-indent: 12px;
-          line-height: 30px;
-          color: #333333;
+          background-color: #fff;
+
+          a {
+            display: block;
+            height: 30px;
+            text-indent: 12px;
+            line-height: 30px;
+            color: #333333;
+          }
         }
       }
     }
   }
 }
 
-.item-children{
-    position: absolute;
-    top: 100px;
-    left: 0;
-    width: 100%;
-    box-shadow: 0 3px 4px rgb(0 0 0 / 20%);
-    z-index: 20;
-    height: 0;
-    overflow: hidden;
-    transition: all .3s;
-    background-color: #fff;
-    border-top: 1px solid transparent;
+.header-nav-menu {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 3px 4px rgb(0 0 0 / 20%);
+  z-index: 20;
+  height: 0;
+  overflow: hidden;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  opacity: 0;
+  transition: height 0.3s;
 
-    .container{
-      width: 1226px;
-      margin: 0 auto;
-      
-      ul{
-        display: flex;
-        justify-content: space-between;
-        align-items: stretch;
-        padding: 36px 0 24px;
-      }
-      li{
+  .container {
+    width: 1226px;
+    margin: 0 auto;
+
+    .children-list {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      padding: 36px 0 24px;
+
+      li {
         height: 100%;
         flex: 1;
         padding: 0 10px;
         position: relative;
-        a{
+        a {
           display: block;
           height: 100%;
           color: #333333;
           text-align: center;
-          .item-img{
+          .figure {
             width: 160px;
             height: 110px;
-            img{
-              display: block;
-            }
             margin: 0 auto;
           }
-          div{
+          .title {
             margin: 16px 0 2px;
           }
-          p{
+          .price {
             color: #ff6a00;
           }
         }
 
-        &::after{
+        &::after {
           content: "";
           display: block;
           border-right: 1px solid #e0e0e0;
@@ -329,10 +362,22 @@ export default {
           height: 100px;
         }
 
-        &:last-child::after{
+        &:last-child::after {
           display: none;
         }
       }
     }
+  }
+
+  &.slide-down {
+    opacity: 1;
+    height: 231px;
+  }
+
+  &.slide-up {
+    transition: height 0.3s, opacity 0.8s;
+    opacity: 0;
+    height: 0;
+  }
 }
 </style>
