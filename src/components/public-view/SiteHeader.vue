@@ -9,7 +9,7 @@
       <div class="header-nav">
         <ul class="nav-list clearfix">
           <li class="nav-category">
-            <a href="">全部商品分类</a>
+            <a href="javascript:;">全部商品分类</a>
             <div class="site-category">
             <ul class="site-category-list">
                 <li class="category-item" @mouseenter="showChildren(true)" @mouseleave="showChildren(false)" v-for="(item) of siteCategory" :key="item.title"><a class="show-active" href=""><span>{{item.title}}</span></a>
@@ -204,7 +204,7 @@ export default {
             },
           ],
         },
-        /*{
+        {
           title: "电视",
           itemList: [
             {
@@ -284,7 +284,7 @@ export default {
               describe: "Xiaomi Civi 1S",
             },
           ],
-        },*/
+        }
       ]
     };
   },
@@ -309,7 +309,6 @@ export default {
       event.target.classList.remove("nav-item-active");
     },
     formWrie(toogle) {
-      console.log(toogle);
       if (toogle) {
         event.target.children[0].classList.add("wrie-active");
         event.target.children[1].classList.add("wrie-active");
@@ -320,7 +319,6 @@ export default {
     },
     formListIsShow(toogle) {
       if (toogle) {
-        console.log(event.target.parentNode.parentNode.children[0]);
         event.target.parentNode.parentNode.children[2].style.display = "block";
         event.target.parentNode.parentNode.children[0].classList.add(
           "click-active"
@@ -354,7 +352,6 @@ export default {
     },
     showChildren(toogle){
       if(toogle){
-        console.log(event.target.children[1]);
         event.target.children[1].style.display="block"
         event.target.classList.add("bgc-active");
       }else{
@@ -429,6 +426,8 @@ export default {
       font-size: 16px;
       text-align: right;
       transition: color 0.3s;
+      opacity: 0;
+      cursor: default;
     }
     .site-category {
       width: 234px;
@@ -439,10 +438,10 @@ export default {
       left: 0;
       .site-category-list {
         padding: 20px 0;
+        position: relative;
 
         .category-item {
           height: 42px;
-          position: relative;
           .show-active {
             display: block;
             height: 100%;
@@ -466,7 +465,7 @@ export default {
           }
           .children{
             position: absolute;
-            top: -20px;
+            top: 0;
             left: 234px;
             height: 460px;
             display: none;
