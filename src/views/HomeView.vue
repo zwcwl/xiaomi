@@ -7,6 +7,9 @@
     </div>
     <div class="body-container">
       <shou-ji></shou-ji>
+      <chuan-dai></chuan-dai>
+      <dian-nao></dian-nao>
+      <jia-dian></jia-dian>
     </div>
   </div>
 </template>
@@ -18,6 +21,9 @@ import SiteTopbar from '@/components/public-view/SiteTopbar.vue'
 import SiteHeader from '@/components/public-view/SiteHeader.vue'
 import HomeHero from '@/components/home-view/HomeHero.vue'
 import ShouJi from '@/components/home-view/ShouJi.vue'
+import ChuanDai from '@/components/home-view/ChuanDai.vue'
+import DianNao from '../components/home-view/DianNao.vue'
+import JiaDian from '../components/home-view/JiaDian.vue'
 
 export default {
   name: 'HomeView',
@@ -25,7 +31,10 @@ export default {
     SiteTopbar,
     SiteHeader,
     HomeHero,
-    ShouJi
+    ShouJi,
+    ChuanDai,
+    DianNao,
+    JiaDian
   }
 }
 </script>

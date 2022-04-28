@@ -7,8 +7,8 @@
                 </li>
             </ul>
             <div class="btn-rl">
-                <button @click="left" class="btn-left"><i class="iconfont icon-back"></i></button>
-                <button @click="right" class="btn-right"><i class="iconfont icon-back"></i></button>
+                <button @click="left" class="btn-left"><a href="javascript:;"><i class="iconfont icon-back"></i></a></button>
+                <button @click="right" class="btn-right"><a href="javascript:;"><i class="iconfont icon-back"></i></a></button>
             </div>
             <div class="btn-pagination" ref="radiusBtn">
                 <a @click="cutSwiper(index)" :class="{'bgc-active':index==0}" v-for="(item,index) of bannerImg" :key="item" href="javascript:;"></a>
@@ -27,9 +27,9 @@
             </div>
             <div class="home-promo-list">
                 <ul>
-                    <li><a href=""></a></li>
-                    <li><a href=""></a></li>
-                    <li><a href=""></a></li>
+                    <li><a href=""><img src="@/assets/images/promo-list-01.jpg" alt=""></a></li>
+                    <li><a href=""><img src="@/assets/images/promo-list-02.jpg" alt=""></a></li>
+                    <li><a href=""><img src="@/assets/images/promo-list-03.jpg" alt=""></a></li>
                 </ul>
             </div>
         </div>
@@ -47,46 +47,49 @@ export default {
         require("@/assets/images/banner-03.webp"),
         require("@/assets/images/banner-04.webp"),
         require("@/assets/images/banner-05.webp"),
-        require("@/assets/images/banner-06.webp")
+        require("@/assets/images/banner-06.webp"),
       ],
       promoList: [],
       num: 0,
-      timer:null
+      timer: null,
     };
   },
   methods: {
     runSwiper() {
-      this.timer=setInterval(() => {
+      this.timer = setInterval(() => {
         this.right();
       }, 5000);
     },
     left() {
       let obj = this.$refs.swiper.children;
+      let btn = this.$refs.radiusBtn.children;
       if (this.num > 0) {
-        obj[this.num].classList.remove("showActive");
+        obj[this.num].classList.remove("show-active");
+        btn[this.num].classList.remove("bgc-active");
         this.num--;
-        obj[this.num].classList.add("showActive");
-      }else{
-        this.num=5;
-        obj[0].classList.remove("showActive");
-        obj[this.num].classList.add("showActive");
+        obj[this.num].classList.add("show-active");
+        btn[this.num].classList.add("bgc-active");
+      } else {
+        this.num = 5;
+        obj[0].classList.remove("show-active");
+        btn[0].classList.remove("bgc-active");
+        obj[this.num].classList.add("show-active");
+        btn[this.num].classList.add("bgc-active");
       }
       clearInterval(this.timer);
       this.runSwiper();
     },
     right() {
-      console.log(this);
       let obj = this.$refs.swiper.children;
-      let btn=this.$refs.radiusBtn.children;
+      let btn = this.$refs.radiusBtn.children;
       if (this.num < 5) {
         obj[this.num].classList.remove("show-active");
         btn[this.num].classList.remove("bgc-active");
         this.num++;
-        console.log(this.num)
         obj[this.num].classList.add("show-active");
-         btn[this.num].classList.add("bgc-active");
-      }else{
-        this.num=0;
+        btn[this.num].classList.add("bgc-active");
+      } else {
+        this.num = 0;
         obj[5].classList.remove("show-active");
         btn[5].classList.remove("bgc-active");
         obj[this.num].classList.add("show-active");
@@ -95,32 +98,32 @@ export default {
       clearInterval(this.timer);
       this.runSwiper();
     },
-    cutSwiper(index){
+    cutSwiper(index) {
       let obj = this.$refs.swiper.children;
-      let btn=this.$refs.radiusBtn.children;
+      let btn = this.$refs.radiusBtn.children;
       obj[this.num].classList.remove("show-active");
       btn[this.num].classList.remove("bgc-active");
-      this.num=index;
+      this.num = index;
       obj[this.num].classList.add("show-active");
       btn[index].classList.add("bgc-active");
       clearInterval(this.timer);
       this.runSwiper();
     },
-    autoSwiper(){
+    autoSwiper() {
       let obj = this.$refs.swiper.children;
-      let btn=this.$refs.radiusBtn.children;
+      let btn = this.$refs.radiusBtn.children;
       obj[this.num].classList.remove("show-active");
       btn[this.num].classList.remove("bgc-active");
-      this.num=index;
+      this.num = index;
       obj[this.num].classList.add("show-active");
       btn[index].classList.add("bgc-active");
       clearInterval(this.timer);
       this.runSwiper();
-    }
+    },
   },
-  mounted(){
+  mounted() {
     this.runSwiper();
-  }
+  },
 };
 </script>
 
@@ -161,11 +164,23 @@ export default {
       width: 40px;
       height: 70px;
       border-radius: 6px;
-      background-color: rgb(255, 75, 105);
+      background-color: transparent;
       position: absolute;
       top: calc(460px / 2 - 35px);
-      i {
-        font-size: 24px;
+      padding: 0;
+      a {
+        display: block;
+        height: 100%;
+        line-height: 70px;
+        i {
+          font-size: 36px;
+        }
+      }
+      &:hover{
+        background-color: rgba(51, 51, 51, .6);
+        a{
+          color: white;
+        }
       }
     }
     .btn-left {
@@ -189,9 +204,9 @@ export default {
       float: left;
       margin: 4px;
       background-color: rgba(0, 0, 0, 0.4);
-      &.bgc-active{
-        background: hsla(0,0%,100%,.4);
-        border-color: rgba(0,0,0,.4);
+      &.bgc-active {
+        background: hsla(0, 0%, 100%, 0.4);
+        border-color: rgba(0, 0, 0, 0.4);
       }
     }
   }
@@ -263,6 +278,13 @@ export default {
         width: 316px;
         height: 170px;
         background-color: rgb(216, 151, 151);
+        a{
+          display: block;
+          height: 100%;
+          img{
+            width: 100%;
+          }
+        }
       }
     }
   }
