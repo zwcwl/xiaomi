@@ -130,7 +130,6 @@ export default {
   .container {
     width: 1226px;
     margin: 0 auto;
-    .home-brick-box {
       .box-hd {
         height: 58px;
         line-height: 58px;
@@ -307,7 +306,6 @@ export default {
           }
         }
       }
-    }
   }
 }
 </style>

@@ -1,7 +1,6 @@
 <template>
   <div class="chuan-dai">
     <div class="container">
-      <div class="home-brick-box">
         <div class="box-hd clearfix">
           <div class="title">
             <h2>智能穿戴</h2>
@@ -72,7 +71,7 @@
               <div class="card clearfix">
                 <div class="card-title">
                   <p>浏览更多</p>
-                  <span>热门</span>
+                  <span>穿戴</span>
                 </div>
                 <div class="card-icon">
                   <i class="iconfont icon-jiantou"></i>
@@ -81,7 +80,6 @@
             </li>
           </ul>
         </div>
-      </div>
     </div>
   </div>
 </template>
@@ -186,7 +184,6 @@ export default {
   .container {
     width: 1226px;
     margin: 0 auto;
-    .home-brick-box {
       .box-hd {
         height: 58px;
         line-height: 58px;
@@ -316,7 +313,6 @@ export default {
           }
         }
       }
-    }
   }
 }
 </style>

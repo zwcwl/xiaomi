@@ -10,6 +10,13 @@
       <chuan-dai></chuan-dai>
       <dian-nao></dian-nao>
       <jia-dian></jia-dian>
+      <dian-qi></dian-qi>
+      <shi-pin></shi-pin>
+    </div>
+    <div class="footer">
+      <site-footer></site-footer>
+      <site-info></site-info>
+      <site-tool-bar></site-tool-bar>
     </div>
   </div>
 </template>
@@ -22,8 +29,13 @@ import SiteHeader from '@/components/public-view/SiteHeader.vue'
 import HomeHero from '@/components/home-view/HomeHero.vue'
 import ShouJi from '@/components/home-view/ShouJi.vue'
 import ChuanDai from '@/components/home-view/ChuanDai.vue'
-import DianNao from '../components/home-view/DianNao.vue'
-import JiaDian from '../components/home-view/JiaDian.vue'
+import DianNao from '@/components/home-view/DianNao.vue'
+import JiaDian from '@/components/home-view/JiaDian.vue'
+import DianQi from '@/components/home-view/DianQi.vue'
+import ShiPin from '@/components/home-view/ShiPin.vue'
+import SiteFooter from '@/components/public-view/SiteFooter.vue'
+import SiteInfo from '@/components/public-view/SiteInfo.vue'
+import SiteToolBar from '../components/public-view/SiteToolBar.vue'
 
 export default {
   name: 'HomeView',
@@ -34,7 +46,12 @@ export default {
     ShouJi,
     ChuanDai,
     DianNao,
-    JiaDian
+    JiaDian,
+    DianQi,
+    ShiPin,
+    SiteFooter,
+    SiteInfo,
+    SiteToolBar
   }
 }
 </script>
