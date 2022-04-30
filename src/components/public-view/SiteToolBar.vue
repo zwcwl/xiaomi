@@ -22,9 +22,9 @@
           <p>购物车</p>
         </a></li>
     </ul>
-    <div class="backtop">
-      <a href="">
-        <div class="icon"><i class="iconfont icon-banshou"></i></div>
+    <div class="backtop" v-show="toogle" @click="backTop">
+      <a href="javascript:;">
+        <div class="icon"><i class="iconfont icon-huidingbu"></i></div>
         <p>回顶部</p>
       </a>
     </div>
@@ -33,19 +33,39 @@
 
 <script>
 export default {
-  name: "SiteToolBar"
+  name: "SiteToolBar",
+  data() {
+    return {
+      toogle: false
+    }
+  },
+  methods: {
+    backTop(){
+      document.documentElement.scrollTop=0;
+    }
+  },
+  mounted () {
+    window.onscroll = () => {
+      let num=document.documentElement.scrollTop;
+      if(1500 < num){
+        this.toogle=true
+      }else{
+        this.toogle=false
+      }
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .site-tool-bar {
   width: 84px;
-  background-color: #fff;
   position: fixed;
   right: 0;
   bottom: 70px;
   .tool-list {
     border: 1px solid #f5f5f5;
+    background-color: #fff;
     .tool-item {
       height: 92px;
       border-bottom: 1px solid #f5f5f5;
@@ -70,6 +90,7 @@ export default {
   .backtop {
     margin-top: 14px;
     border: 1px solid #f5f5f5;
+    background-color: #fff;
     width: 84px;
     height: 92px;
 		a{

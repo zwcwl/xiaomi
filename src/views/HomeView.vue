@@ -1,5 +1,6 @@
 <template>
-  <div class="home">
+  <div class="home"
+       ref="scroll">
     <div class="header">
       <site-topbar></site-topbar>
       <site-header></site-header>
@@ -39,7 +40,7 @@ import SiteToolBar from '../components/public-view/SiteToolBar.vue'
 
 export default {
   name: 'HomeView',
-  components:{
+  components: {
     SiteTopbar,
     SiteHeader,
     HomeHero,
@@ -57,12 +58,12 @@ export default {
 </script>
 
 <style lang="scss">
-.home{
+.home {
   background-color: #fff;
 }
-.body-container{
+.body-container {
   background-color: #f5f5f5;
-  
+
   padding-top: 4px;
 }
 </style>
